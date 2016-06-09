@@ -61,6 +61,10 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="access_url" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            
             <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>

@@ -72,6 +72,8 @@ public class TrackResourceIntTest {
 
     private static final TypeTrack DEFAULT_TYPE = TypeTrack.original;
     private static final TypeTrack UPDATED_TYPE = TypeTrack.remix;
+    private static final String DEFAULT_ACCESS_URL = "AAAAA";
+    private static final String UPDATED_ACCESS_URL = "BBBBB";
 
     @Inject
     private TrackRepository trackRepository;
@@ -114,6 +116,7 @@ public class TrackResourceIntTest {
         track.setDescription(DEFAULT_DESCRIPTION);
         track.setLocation_track(DEFAULT_LOCATION_TRACK);
         track.setType(DEFAULT_TYPE);
+        track.setAccessUrl(DEFAULT_ACCESS_URL);
     }
 
     @Test
@@ -142,6 +145,7 @@ public class TrackResourceIntTest {
         assertThat(testTrack.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testTrack.getLocation_track()).isEqualTo(DEFAULT_LOCATION_TRACK);
         assertThat(testTrack.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testTrack.getAccessUrl()).isEqualTo(DEFAULT_ACCESS_URL);
 
         // Validate the Track in ElasticSearch
         Track trackEs = trackSearchRepository.findOne(testTrack.getId());
@@ -222,6 +226,24 @@ public class TrackResourceIntTest {
 
     @Test
     @Transactional
+    public void checkAccessUrlIsRequired() throws Exception {
+        int databaseSizeBeforeTest = trackRepository.findAll().size();
+        // set the field null
+        track.setAccessUrl(null);
+
+        // Create the Track, which fails.
+
+        restTrackMockMvc.perform(post("/api/tracks")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(track)))
+                .andExpect(status().isBadRequest());
+
+        List<Track> tracks = trackRepository.findAll();
+        assertThat(tracks).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllTracks() throws Exception {
         // Initialize the database
         trackRepository.saveAndFlush(track);
@@ -240,7 +262,8 @@ public class TrackResourceIntTest {
                 .andExpect(jsonPath("$.[*].date_upload").value(hasItem(DEFAULT_DATE_UPLOAD_STR)))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].location_track").value(hasItem(DEFAULT_LOCATION_TRACK.toString())))
-                .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+                .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
+                .andExpect(jsonPath("$.[*].accessUrl").value(hasItem(DEFAULT_ACCESS_URL.toString())));
     }
 
     @Test
@@ -263,7 +286,8 @@ public class TrackResourceIntTest {
             .andExpect(jsonPath("$.date_upload").value(DEFAULT_DATE_UPLOAD_STR))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.location_track").value(DEFAULT_LOCATION_TRACK.toString()))
-            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
+            .andExpect(jsonPath("$.accessUrl").value(DEFAULT_ACCESS_URL.toString()));
     }
 
     @Test
@@ -295,6 +319,7 @@ public class TrackResourceIntTest {
         updatedTrack.setDescription(UPDATED_DESCRIPTION);
         updatedTrack.setLocation_track(UPDATED_LOCATION_TRACK);
         updatedTrack.setType(UPDATED_TYPE);
+        updatedTrack.setAccessUrl(UPDATED_ACCESS_URL);
 
         restTrackMockMvc.perform(put("/api/tracks")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -315,6 +340,7 @@ public class TrackResourceIntTest {
         assertThat(testTrack.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testTrack.getLocation_track()).isEqualTo(UPDATED_LOCATION_TRACK);
         assertThat(testTrack.getType()).isEqualTo(UPDATED_TYPE);
+        assertThat(testTrack.getAccessUrl()).isEqualTo(UPDATED_ACCESS_URL);
 
         // Validate the Track in ElasticSearch
         Track trackEs = trackSearchRepository.findOne(testTrack.getId());
@@ -364,6 +390,7 @@ public class TrackResourceIntTest {
             .andExpect(jsonPath("$.[*].date_upload").value(hasItem(DEFAULT_DATE_UPLOAD_STR)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].location_track").value(hasItem(DEFAULT_LOCATION_TRACK.toString())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].accessUrl").value(hasItem(DEFAULT_ACCESS_URL.toString())));
     }
 }

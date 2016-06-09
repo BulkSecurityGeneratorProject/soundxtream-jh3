@@ -83,6 +83,7 @@
                                 description: null,
                                 location_track: null,
                                 type: null,
+                                accessUrl: null,
                                 id: null
                             };
                         }

@@ -46,6 +46,7 @@
                     <th jh-sort-by="description"><span translate="soundxtream3App.track.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="location_track"><span translate="soundxtream3App.track.location_track">Location Track</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="type"><span translate="soundxtream3App.track.type">Type</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="accessUrl"><span translate="soundxtream3App.track.accessUrl">Access Url</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="user.login"><span translate="soundxtream3App.track.user">User</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -63,6 +64,7 @@
                     <td>{{track.description}}</td>
                     <td>{{track.location_track}}</td>
                     <td translate="{{'soundxtream3App.TypeTrack.' + track.type}}">{{track.type}}</td>
+                    <td>{{track.accessUrl}}</td>
                     <td>
                         {{track.user.login}}
                     </td>

@@ -26,6 +26,7 @@
             "description": "Description",
             "location_track": "Location Track",
             "type": "Type",
+            "accessUrl": "Access Url",
             "user": "User",
             "style": "Style"
         }

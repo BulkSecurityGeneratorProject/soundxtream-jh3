@@ -64,6 +64,10 @@ public class Track implements Serializable {
     @Column(name = "type", nullable = false)
     private TypeTrack type;
 
+    @NotNull
+    @Column(name = "access_url", nullable = false)
+    private String accessUrl;
+
     @ManyToOne
     private User user;
 
@@ -162,6 +166,14 @@ public class Track implements Serializable {
         this.type = type;
     }
 
+    public String getAccessUrl() {
+        return accessUrl;
+    }
+
+    public void setAccessUrl(String accessUrl) {
+        this.accessUrl = accessUrl;
+    }
+
     public User getUser() {
         return user;
     }
@@ -212,6 +224,7 @@ public class Track implements Serializable {
             ", description='" + description + "'" +
             ", location_track='" + location_track + "'" +
             ", type='" + type + "'" +
+            ", accessUrl='" + accessUrl + "'" +
             '}';
     }
 }
