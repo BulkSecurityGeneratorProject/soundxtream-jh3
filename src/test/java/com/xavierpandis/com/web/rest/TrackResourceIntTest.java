@@ -21,6 +21,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -55,10 +56,6 @@ public class TrackResourceIntTest {
     private static final String UPDATED_LABEL = "BBBBB";
     private static final String DEFAULT_BUY_URL = "AAAAA";
     private static final String UPDATED_BUY_URL = "BBBBB";
-    private static final String DEFAULT_ARTWORK = "AAAAA";
-    private static final String UPDATED_ARTWORK = "BBBBB";
-    private static final String DEFAULT_VISUAL = "AAAAA";
-    private static final String UPDATED_VISUAL = "BBBBB";
     private static final String DEFAULT_TAGS = "AAAAA";
     private static final String UPDATED_TAGS = "BBBBB";
 
@@ -74,6 +71,16 @@ public class TrackResourceIntTest {
     private static final TypeTrack UPDATED_TYPE = TypeTrack.remix;
     private static final String DEFAULT_ACCESS_URL = "AAAAA";
     private static final String UPDATED_ACCESS_URL = "BBBBB";
+
+    private static final byte[] DEFAULT_ARTWORK = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_ARTWORK = TestUtil.createByteArray(2, "1");
+    private static final String DEFAULT_ARTWORK_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_ARTWORK_CONTENT_TYPE = "image/png";
+
+    private static final byte[] DEFAULT_VISUAL = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_VISUAL = TestUtil.createByteArray(2, "1");
+    private static final String DEFAULT_VISUAL_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_VISUAL_CONTENT_TYPE = "image/png";
 
     @Inject
     private TrackRepository trackRepository;
@@ -109,14 +116,16 @@ public class TrackResourceIntTest {
         track.setName(DEFAULT_NAME);
         track.setLabel(DEFAULT_LABEL);
         track.setBuy_url(DEFAULT_BUY_URL);
-        track.setArtwork(DEFAULT_ARTWORK);
-        track.setVisual(DEFAULT_VISUAL);
         track.setTags(DEFAULT_TAGS);
         track.setDate_upload(DEFAULT_DATE_UPLOAD);
         track.setDescription(DEFAULT_DESCRIPTION);
         track.setLocation_track(DEFAULT_LOCATION_TRACK);
         track.setType(DEFAULT_TYPE);
         track.setAccessUrl(DEFAULT_ACCESS_URL);
+        track.setArtwork(DEFAULT_ARTWORK);
+        track.setArtworkContentType(DEFAULT_ARTWORK_CONTENT_TYPE);
+        track.setVisual(DEFAULT_VISUAL);
+        track.setVisualContentType(DEFAULT_VISUAL_CONTENT_TYPE);
     }
 
     @Test
@@ -138,14 +147,16 @@ public class TrackResourceIntTest {
         assertThat(testTrack.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testTrack.getLabel()).isEqualTo(DEFAULT_LABEL);
         assertThat(testTrack.getBuy_url()).isEqualTo(DEFAULT_BUY_URL);
-        assertThat(testTrack.getArtwork()).isEqualTo(DEFAULT_ARTWORK);
-        assertThat(testTrack.getVisual()).isEqualTo(DEFAULT_VISUAL);
         assertThat(testTrack.getTags()).isEqualTo(DEFAULT_TAGS);
         assertThat(testTrack.getDate_upload()).isEqualTo(DEFAULT_DATE_UPLOAD);
         assertThat(testTrack.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testTrack.getLocation_track()).isEqualTo(DEFAULT_LOCATION_TRACK);
         assertThat(testTrack.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testTrack.getAccessUrl()).isEqualTo(DEFAULT_ACCESS_URL);
+        assertThat(testTrack.getArtwork()).isEqualTo(DEFAULT_ARTWORK);
+        assertThat(testTrack.getArtworkContentType()).isEqualTo(DEFAULT_ARTWORK_CONTENT_TYPE);
+        assertThat(testTrack.getVisual()).isEqualTo(DEFAULT_VISUAL);
+        assertThat(testTrack.getVisualContentType()).isEqualTo(DEFAULT_VISUAL_CONTENT_TYPE);
 
         // Validate the Track in ElasticSearch
         Track trackEs = trackSearchRepository.findOne(testTrack.getId());
@@ -256,14 +267,16 @@ public class TrackResourceIntTest {
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL.toString())))
                 .andExpect(jsonPath("$.[*].buy_url").value(hasItem(DEFAULT_BUY_URL.toString())))
-                .andExpect(jsonPath("$.[*].artwork").value(hasItem(DEFAULT_ARTWORK.toString())))
-                .andExpect(jsonPath("$.[*].visual").value(hasItem(DEFAULT_VISUAL.toString())))
                 .andExpect(jsonPath("$.[*].tags").value(hasItem(DEFAULT_TAGS.toString())))
                 .andExpect(jsonPath("$.[*].date_upload").value(hasItem(DEFAULT_DATE_UPLOAD_STR)))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].location_track").value(hasItem(DEFAULT_LOCATION_TRACK.toString())))
                 .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-                .andExpect(jsonPath("$.[*].accessUrl").value(hasItem(DEFAULT_ACCESS_URL.toString())));
+                .andExpect(jsonPath("$.[*].accessUrl").value(hasItem(DEFAULT_ACCESS_URL.toString())))
+                .andExpect(jsonPath("$.[*].artworkContentType").value(hasItem(DEFAULT_ARTWORK_CONTENT_TYPE)))
+                .andExpect(jsonPath("$.[*].artwork").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARTWORK))))
+                .andExpect(jsonPath("$.[*].visualContentType").value(hasItem(DEFAULT_VISUAL_CONTENT_TYPE)))
+                .andExpect(jsonPath("$.[*].visual").value(hasItem(Base64Utils.encodeToString(DEFAULT_VISUAL))));
     }
 
     @Test
@@ -280,14 +293,16 @@ public class TrackResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.label").value(DEFAULT_LABEL.toString()))
             .andExpect(jsonPath("$.buy_url").value(DEFAULT_BUY_URL.toString()))
-            .andExpect(jsonPath("$.artwork").value(DEFAULT_ARTWORK.toString()))
-            .andExpect(jsonPath("$.visual").value(DEFAULT_VISUAL.toString()))
             .andExpect(jsonPath("$.tags").value(DEFAULT_TAGS.toString()))
             .andExpect(jsonPath("$.date_upload").value(DEFAULT_DATE_UPLOAD_STR))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.location_track").value(DEFAULT_LOCATION_TRACK.toString()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.accessUrl").value(DEFAULT_ACCESS_URL.toString()));
+            .andExpect(jsonPath("$.accessUrl").value(DEFAULT_ACCESS_URL.toString()))
+            .andExpect(jsonPath("$.artworkContentType").value(DEFAULT_ARTWORK_CONTENT_TYPE))
+            .andExpect(jsonPath("$.artwork").value(Base64Utils.encodeToString(DEFAULT_ARTWORK)))
+            .andExpect(jsonPath("$.visualContentType").value(DEFAULT_VISUAL_CONTENT_TYPE))
+            .andExpect(jsonPath("$.visual").value(Base64Utils.encodeToString(DEFAULT_VISUAL)));
     }
 
     @Test
@@ -312,14 +327,16 @@ public class TrackResourceIntTest {
         updatedTrack.setName(UPDATED_NAME);
         updatedTrack.setLabel(UPDATED_LABEL);
         updatedTrack.setBuy_url(UPDATED_BUY_URL);
-        updatedTrack.setArtwork(UPDATED_ARTWORK);
-        updatedTrack.setVisual(UPDATED_VISUAL);
         updatedTrack.setTags(UPDATED_TAGS);
         updatedTrack.setDate_upload(UPDATED_DATE_UPLOAD);
         updatedTrack.setDescription(UPDATED_DESCRIPTION);
         updatedTrack.setLocation_track(UPDATED_LOCATION_TRACK);
         updatedTrack.setType(UPDATED_TYPE);
         updatedTrack.setAccessUrl(UPDATED_ACCESS_URL);
+        updatedTrack.setArtwork(UPDATED_ARTWORK);
+        updatedTrack.setArtworkContentType(UPDATED_ARTWORK_CONTENT_TYPE);
+        updatedTrack.setVisual(UPDATED_VISUAL);
+        updatedTrack.setVisualContentType(UPDATED_VISUAL_CONTENT_TYPE);
 
         restTrackMockMvc.perform(put("/api/tracks")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -333,14 +350,16 @@ public class TrackResourceIntTest {
         assertThat(testTrack.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testTrack.getLabel()).isEqualTo(UPDATED_LABEL);
         assertThat(testTrack.getBuy_url()).isEqualTo(UPDATED_BUY_URL);
-        assertThat(testTrack.getArtwork()).isEqualTo(UPDATED_ARTWORK);
-        assertThat(testTrack.getVisual()).isEqualTo(UPDATED_VISUAL);
         assertThat(testTrack.getTags()).isEqualTo(UPDATED_TAGS);
         assertThat(testTrack.getDate_upload()).isEqualTo(UPDATED_DATE_UPLOAD);
         assertThat(testTrack.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testTrack.getLocation_track()).isEqualTo(UPDATED_LOCATION_TRACK);
         assertThat(testTrack.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testTrack.getAccessUrl()).isEqualTo(UPDATED_ACCESS_URL);
+        assertThat(testTrack.getArtwork()).isEqualTo(UPDATED_ARTWORK);
+        assertThat(testTrack.getArtworkContentType()).isEqualTo(UPDATED_ARTWORK_CONTENT_TYPE);
+        assertThat(testTrack.getVisual()).isEqualTo(UPDATED_VISUAL);
+        assertThat(testTrack.getVisualContentType()).isEqualTo(UPDATED_VISUAL_CONTENT_TYPE);
 
         // Validate the Track in ElasticSearch
         Track trackEs = trackSearchRepository.findOne(testTrack.getId());
@@ -384,13 +403,15 @@ public class TrackResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL.toString())))
             .andExpect(jsonPath("$.[*].buy_url").value(hasItem(DEFAULT_BUY_URL.toString())))
-            .andExpect(jsonPath("$.[*].artwork").value(hasItem(DEFAULT_ARTWORK.toString())))
-            .andExpect(jsonPath("$.[*].visual").value(hasItem(DEFAULT_VISUAL.toString())))
             .andExpect(jsonPath("$.[*].tags").value(hasItem(DEFAULT_TAGS.toString())))
             .andExpect(jsonPath("$.[*].date_upload").value(hasItem(DEFAULT_DATE_UPLOAD_STR)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].location_track").value(hasItem(DEFAULT_LOCATION_TRACK.toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].accessUrl").value(hasItem(DEFAULT_ACCESS_URL.toString())));
+            .andExpect(jsonPath("$.[*].accessUrl").value(hasItem(DEFAULT_ACCESS_URL.toString())))
+            .andExpect(jsonPath("$.[*].artworkContentType").value(hasItem(DEFAULT_ARTWORK_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].artwork").value(hasItem(Base64Utils.encodeToString(DEFAULT_ARTWORK))))
+            .andExpect(jsonPath("$.[*].visualContentType").value(hasItem(DEFAULT_VISUAL_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].visual").value(hasItem(Base64Utils.encodeToString(DEFAULT_VISUAL))));
     }
 }

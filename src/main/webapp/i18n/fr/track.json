@@ -19,14 +19,14 @@
             "name": "Name",
             "label": "Label",
             "buy_url": "Buy Url",
-            "artwork": "Artwork",
-            "visual": "Visual",
             "tags": "Tags",
             "date_upload": "Date Upload",
             "description": "Description",
             "location_track": "Location Track",
             "type": "Type",
             "accessUrl": "Access Url",
+            "artwork": "Artwork",
+            "visual": "Visual",
             "user": "User",
             "style": "Style"
         }

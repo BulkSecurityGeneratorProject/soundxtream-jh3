@@ -76,14 +76,16 @@
                                 name: null,
                                 label: null,
                                 buy_url: null,
-                                artwork: null,
-                                visual: null,
                                 tags: null,
                                 date_upload: null,
                                 description: null,
                                 location_track: null,
                                 type: null,
                                 accessUrl: null,
+                                artwork: null,
+                                artworkContentType: null,
+                                visual: null,
+                                visualContentType: null,
                                 id: null
                             };
                         }

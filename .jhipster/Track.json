@@ -32,14 +32,6 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "artwork",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "visual",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "tags",
             "fieldType": "String"
         },
@@ -75,6 +67,16 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "artwork",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "visual",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
         }
     ],
     "changelogDate": "20160609102023",

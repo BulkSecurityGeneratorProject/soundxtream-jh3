@@ -39,12 +39,6 @@ public class Track implements Serializable {
     @Column(name = "buy_url")
     private String buy_url;
 
-    @Column(name = "artwork")
-    private String artwork;
-
-    @Column(name = "visual")
-    private String visual;
-
     @Column(name = "tags")
     private String tags;
 
@@ -67,6 +61,20 @@ public class Track implements Serializable {
     @NotNull
     @Column(name = "access_url", nullable = false)
     private String accessUrl;
+
+    @Lob
+    @Column(name = "artwork")
+    private byte[] artwork;
+
+    @Column(name = "artwork_content_type")
+    private String artworkContentType;
+
+    @Lob
+    @Column(name = "visual")
+    private byte[] visual;
+
+    @Column(name = "visual_content_type")
+    private String visualContentType;
 
     @ManyToOne
     private User user;
@@ -108,22 +116,6 @@ public class Track implements Serializable {
 
     public void setBuy_url(String buy_url) {
         this.buy_url = buy_url;
-    }
-
-    public String getArtwork() {
-        return artwork;
-    }
-
-    public void setArtwork(String artwork) {
-        this.artwork = artwork;
-    }
-
-    public String getVisual() {
-        return visual;
-    }
-
-    public void setVisual(String visual) {
-        this.visual = visual;
     }
 
     public String getTags() {
@@ -174,6 +166,38 @@ public class Track implements Serializable {
         this.accessUrl = accessUrl;
     }
 
+    public byte[] getArtwork() {
+        return artwork;
+    }
+
+    public void setArtwork(byte[] artwork) {
+        this.artwork = artwork;
+    }
+
+    public String getArtworkContentType() {
+        return artworkContentType;
+    }
+
+    public void setArtworkContentType(String artworkContentType) {
+        this.artworkContentType = artworkContentType;
+    }
+
+    public byte[] getVisual() {
+        return visual;
+    }
+
+    public void setVisual(byte[] visual) {
+        this.visual = visual;
+    }
+
+    public String getVisualContentType() {
+        return visualContentType;
+    }
+
+    public void setVisualContentType(String visualContentType) {
+        this.visualContentType = visualContentType;
+    }
+
     public User getUser() {
         return user;
     }
@@ -217,14 +241,16 @@ public class Track implements Serializable {
             ", name='" + name + "'" +
             ", label='" + label + "'" +
             ", buy_url='" + buy_url + "'" +
-            ", artwork='" + artwork + "'" +
-            ", visual='" + visual + "'" +
             ", tags='" + tags + "'" +
             ", date_upload='" + date_upload + "'" +
             ", description='" + description + "'" +
             ", location_track='" + location_track + "'" +
             ", type='" + type + "'" +
             ", accessUrl='" + accessUrl + "'" +
+            ", artwork='" + artwork + "'" +
+            ", artworkContentType='" + artworkContentType + "'" +
+            ", visual='" + visual + "'" +
+            ", visualContentType='" + visualContentType + "'" +
             '}';
     }
 }

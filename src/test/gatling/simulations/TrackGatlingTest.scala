@@ -80,7 +80,7 @@ class TrackGatlingTest extends Simulation {
             .exec(http("Create new track")
             .post("/api/tracks")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "label":"SAMPLE_TEXT", "buy_url":"SAMPLE_TEXT", "artwork":"SAMPLE_TEXT", "visual":"SAMPLE_TEXT", "tags":"SAMPLE_TEXT", "date_upload":"2020-01-01T00:00:00.000Z", "description":"SAMPLE_TEXT", "location_track":"SAMPLE_TEXT", "type":null, "accessUrl":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "label":"SAMPLE_TEXT", "buy_url":"SAMPLE_TEXT", "tags":"SAMPLE_TEXT", "date_upload":"2020-01-01T00:00:00.000Z", "description":"SAMPLE_TEXT", "location_track":"SAMPLE_TEXT", "type":null, "accessUrl":"SAMPLE_TEXT", "artwork":null, "visual":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_track_url"))).exitHereIfFailed
             .pause(10)

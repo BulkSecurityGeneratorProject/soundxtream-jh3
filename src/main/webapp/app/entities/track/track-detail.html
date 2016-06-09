@@ -16,14 +16,6 @@
         <dd>
             <span>{{vm.track.buy_url}}</span>
         </dd>
-        <dt><span translate="soundxtream3App.track.artwork">Artwork</span></dt>
-        <dd>
-            <span>{{vm.track.artwork}}</span>
-        </dd>
-        <dt><span translate="soundxtream3App.track.visual">Visual</span></dt>
-        <dd>
-            <span>{{vm.track.visual}}</span>
-        </dd>
         <dt><span translate="soundxtream3App.track.tags">Tags</span></dt>
         <dd>
             <span>{{vm.track.tags}}</span>
@@ -47,6 +39,24 @@
         <dt><span translate="soundxtream3App.track.accessUrl">Access Url</span></dt>
         <dd>
             <span>{{vm.track.accessUrl}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.artwork">Artwork</span></dt>
+        <dd>
+            <div ng-if="vm.track.artwork">
+                <a ng-click="vm.openFile(vm.track.artworkContentType, vm.track.artwork)">
+                    <img data-ng-src="{{'data:' + vm.track.artworkContentType + ';base64,' + vm.track.artwork}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.track.artworkContentType}}, {{vm.byteSize(vm.track.artwork)}}
+            </div>
+        </dd>
+        <dt><span translate="soundxtream3App.track.visual">Visual</span></dt>
+        <dd>
+            <div ng-if="vm.track.visual">
+                <a ng-click="vm.openFile(vm.track.visualContentType, vm.track.visual)">
+                    <img data-ng-src="{{'data:' + vm.track.visualContentType + ';base64,' + vm.track.visual}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.track.visualContentType}}, {{vm.byteSize(vm.track.visual)}}
+            </div>
         </dd>
         <dt><span translate="soundxtream3App.track.user">User</span></dt>
         <dd>

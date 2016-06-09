@@ -5,9 +5,9 @@
         .module('soundxtream3App')
         .controller('TrackController', TrackController);
 
-    TrackController.$inject = ['$scope', '$state', 'Track', 'TrackSearch', 'ParseLinks', 'AlertService'];
+    TrackController.$inject = ['$scope', '$state', 'DataUtils', 'Track', 'TrackSearch', 'ParseLinks', 'AlertService'];
 
-    function TrackController ($scope, $state, Track, TrackSearch, ParseLinks, AlertService) {
+    function TrackController ($scope, $state, DataUtils, Track, TrackSearch, ParseLinks, AlertService) {
         var vm = this;
         
         vm.tracks = [];
@@ -18,6 +18,8 @@
         vm.reverse = true;
         vm.clear = clear;
         vm.search = search;
+        vm.openFile = DataUtils.openFile;
+        vm.byteSize = DataUtils.byteSize;
 
         loadAll();
 

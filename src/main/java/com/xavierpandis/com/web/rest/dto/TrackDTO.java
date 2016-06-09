@@ -25,9 +25,9 @@ public class TrackDTO implements Serializable {
 
     private String buy_url;
 
-    private String artwork;
+    private byte[] artwork;
 
-    private String visual;
+    private byte[] visual;
 
     private String tags;
 
@@ -80,18 +80,18 @@ public class TrackDTO implements Serializable {
     public void setBuy_url(String buy_url) {
         this.buy_url = buy_url;
     }
-    public String getArtwork() {
+    public byte[] getArtwork() {
         return artwork;
     }
 
-    public void setArtwork(String artwork) {
+    public void setArtwork(byte[] artwork) {
         this.artwork = artwork;
     }
-    public String getVisual() {
+    public byte[] getVisual() {
         return visual;
     }
 
-    public void setVisual(String visual) {
+    public void setVisual(byte[] visual) {
         this.visual = visual;
     }
     public String getTags() {

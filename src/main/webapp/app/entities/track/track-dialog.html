@@ -38,18 +38,6 @@
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="soundxtream3App.track.artwork" for="field_artwork">Artwork</label>
-            <input type="text" class="form-control" name="artwork" id="field_artwork"
-                    ng-model="vm.track.artwork"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="soundxtream3App.track.visual" for="field_visual">Visual</label>
-            <input type="text" class="form-control" name="visual" id="field_visual"
-                    ng-model="vm.track.visual"
-                     />
-        </div>
-        <div class="form-group">
             <label class="control-label" translate="soundxtream3App.track.tags" for="field_tags">Tags</label>
             <input type="text" class="form-control" name="tags" id="field_tags"
                     ng-model="vm.track.tags"
@@ -121,6 +109,50 @@
                     This field is required.
                 </p>
             </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setArtwork($file, vm.track)" ngf-pattern="'image/*'">
+            <label class="control-label" translate="soundxtream3App.track.artwork" for="field_artwork">Artwork</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.track.artworkContentType + ';base64,' + vm.track.artwork}}" style="max-height: 100px;" ng-if="vm.track.artwork"/>
+                <div ng-if="vm.track.artwork" class="help-block clearfix">
+                    <span class="pull-left">{{vm.track.artworkContentType}}, {{vm.byteSize(vm.track.artwork)}}</span>
+                    <button ng-click="vm.track.artwork=null;vm.track.artworkContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setArtwork($file, vm.track)" accept="image/*" translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="artwork" id="field_artwork"
+                    ng-model="vm.track.artwork"
+                     />
+            <input type="hidden" class="form-control" name="artworkContentType" id="field_artworkContentType"
+                    ng-model="vm.track.artworkContentType" />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setVisual($file, vm.track)" ngf-pattern="'image/*'">
+            <label class="control-label" translate="soundxtream3App.track.visual" for="field_visual">Visual</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.track.visualContentType + ';base64,' + vm.track.visual}}" style="max-height: 100px;" ng-if="vm.track.visual"/>
+                <div ng-if="vm.track.visual" class="help-block clearfix">
+                    <span class="pull-left">{{vm.track.visualContentType}}, {{vm.byteSize(vm.track.visual)}}</span>
+                    <button ng-click="vm.track.visual=null;vm.track.visualContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setVisual($file, vm.track)" accept="image/*" translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="visual" id="field_visual"
+                    ng-model="vm.track.visual"
+                     />
+            <input type="hidden" class="form-control" name="visualContentType" id="field_visualContentType"
+                    ng-model="vm.track.visualContentType" />
         </div>
 
         <div class="form-group">

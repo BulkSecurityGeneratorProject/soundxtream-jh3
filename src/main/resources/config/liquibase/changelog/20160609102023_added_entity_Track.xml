@@ -33,14 +33,6 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="artwork" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            
-            <column name="visual" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            
             <column name="tags" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -63,6 +55,20 @@
             
             <column name="access_url" type="varchar(255)">
                 <constraints nullable="false" />
+            </column>
+            
+            <column name="artwork" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="artwork_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="visual" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="visual_content_type" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
             
             <column name="user_id" type="bigint">
