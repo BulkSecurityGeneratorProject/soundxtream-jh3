@@ -1,0 +1,13 @@
+{
+    "soundxtream3App": {
+        "TypeTrack" : {
+            "null": "",
+            "original": "original",
+            "remix": "remix",
+            "mashup": "mashup",
+            "bootleg": "bootleg",
+            "live": "live",
+            "recording": "recording"
+        }
+    }
+}

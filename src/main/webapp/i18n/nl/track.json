@@ -1,0 +1,33 @@
+{
+    "soundxtream3App": {
+        "track" : {
+            "home": {
+                "title": "Tracks",
+                "createLabel": "Maak een nieuwe Track",
+                "createOrEditLabel": "Maak of wijzig een Track",
+                "search": "Search for Track"
+            },
+            "created": "A new Track is created with identifier {{ param }}",
+            "updated": "A Track is updated with identifier {{ param }}",
+            "deleted": "A Track is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Track {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Track"
+            },
+            "name": "Name",
+            "label": "Label",
+            "buy_url": "Buy Url",
+            "artwork": "Artwork",
+            "visual": "Visual",
+            "tags": "Tags",
+            "date_upload": "Date Upload",
+            "description": "Description",
+            "location_track": "Location Track",
+            "type": "Type",
+            "user": "User",
+            "style": "Style"
+        }
+    }
+}

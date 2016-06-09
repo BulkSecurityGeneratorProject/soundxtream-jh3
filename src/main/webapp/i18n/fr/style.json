@@ -1,0 +1,23 @@
+{
+    "soundxtream3App": {
+        "style" : {
+            "home": {
+                "title": "Styles",
+                "createLabel": "Créer un nouveau Style",
+                "createOrEditLabel": "Créer ou éditer un Style",
+                "search": "Recherche pour Style"
+            },
+            "created": "Un nouveau Style a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Style avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Style avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Style {{ id }} ?"
+            },
+            "detail": {
+                "title": "Style"
+            },
+            "name": "Name",
+            "image": "Image"
+        }
+    }
+}

@@ -1,0 +1,64 @@
+
+<div>
+    <h2><span translate="soundxtream3App.track.detail.title">Track</span> {{vm.track.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="soundxtream3App.track.name">Name</span></dt>
+        <dd>
+            <span>{{vm.track.name}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.label">Label</span></dt>
+        <dd>
+            <span>{{vm.track.label}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.buy_url">Buy Url</span></dt>
+        <dd>
+            <span>{{vm.track.buy_url}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.artwork">Artwork</span></dt>
+        <dd>
+            <span>{{vm.track.artwork}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.visual">Visual</span></dt>
+        <dd>
+            <span>{{vm.track.visual}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.tags">Tags</span></dt>
+        <dd>
+            <span>{{vm.track.tags}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.date_upload">Date Upload</span></dt>
+        <dd>
+            <span>{{vm.track.date_upload | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.description">Description</span></dt>
+        <dd>
+            <span>{{vm.track.description}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.location_track">Location Track</span></dt>
+        <dd>
+            <span>{{vm.track.location_track}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.type">Type</span></dt>
+        <dd>
+            <span translate="{{'soundxtream3App.TypeTrack.' + vm.track.type}}">{{vm.track.type}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.track.user">User</span></dt>
+        <dd>
+            {{vm.track.user.login}}
+        </dd>
+        <dt><span translate="soundxtream3App.track.style">Style</span></dt>
+        <dd>
+            <span ng-repeat="style in vm.track.styles">
+                <a ui-sref="style-detail({id: {{style.id}}})">{{style.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

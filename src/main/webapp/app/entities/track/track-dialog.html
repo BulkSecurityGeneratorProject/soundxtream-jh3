@@ -1,0 +1,133 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myTrackLabel" translate="soundxtream3App.track.home.createOrEditLabel">Create or edit a Track</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.track.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.track.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.track.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.label" for="field_label">Label</label>
+            <input type="text" class="form-control" name="label" id="field_label"
+                    ng-model="vm.track.label"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.buy_url" for="field_buy_url">Buy Url</label>
+            <input type="text" class="form-control" name="buy_url" id="field_buy_url"
+                    ng-model="vm.track.buy_url"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.artwork" for="field_artwork">Artwork</label>
+            <input type="text" class="form-control" name="artwork" id="field_artwork"
+                    ng-model="vm.track.artwork"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.visual" for="field_visual">Visual</label>
+            <input type="text" class="form-control" name="visual" id="field_visual"
+                    ng-model="vm.track.visual"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.tags" for="field_tags">Tags</label>
+            <input type="text" class="form-control" name="tags" id="field_tags"
+                    ng-model="vm.track.tags"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.date_upload" for="field_date_upload">Date Upload</label>
+                <div class="input-group">
+                    <input id="field_date_upload" type="text" class="form-control" name="date_upload" datetime-picker="{{dateformat}}" ng-model="vm.track.date_upload" is-open="vm.datePickerOpenStatus.date_upload"
+                    required  />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('date_upload')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.date_upload.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.date_upload.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.date_upload.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.track.description"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.location_track" for="field_location_track">Location Track</label>
+            <input type="text" class="form-control" name="location_track" id="field_location_track"
+                    ng-model="vm.track.location_track"
+                    required />
+            <div ng-show="editForm.location_track.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.location_track.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.track.type" for="field_type">Type</label>
+            <select class="form-control" name="type" ng-model="vm.track.type" id="field_type" required>
+                <option value="original" translate="soundxtream3App.TypeTrack.original">original</option>
+                <option value="remix" translate="soundxtream3App.TypeTrack.remix">remix</option>
+                <option value="mashup" translate="soundxtream3App.TypeTrack.mashup">mashup</option>
+                <option value="bootleg" translate="soundxtream3App.TypeTrack.bootleg">bootleg</option>
+                <option value="live" translate="soundxtream3App.TypeTrack.live">live</option>
+                <option value="recording" translate="soundxtream3App.TypeTrack.recording">recording</option>
+            </select>
+            <div ng-show="editForm.type.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.type.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="soundxtream3App.track.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.track.user" ng-options="user as user.login for user in vm.users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="soundxtream3App.track.style" for="field_style">Style</label>
+            <select class="form-control" id="field_style" multiple name="style" ng-model="vm.track.styles" ng-options="style as style.name for style in vm.styles track by style.id"></select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
