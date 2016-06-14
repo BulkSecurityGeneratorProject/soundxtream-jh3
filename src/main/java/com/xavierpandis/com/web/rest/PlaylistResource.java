@@ -2,8 +2,11 @@ package com.xavierpandis.com.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.xavierpandis.com.domain.Playlist;
+import com.xavierpandis.com.domain.User;
 import com.xavierpandis.com.repository.PlaylistRepository;
+import com.xavierpandis.com.repository.UserRepository;
 import com.xavierpandis.com.repository.search.PlaylistSearchRepository;
+import com.xavierpandis.com.security.SecurityUtils;
 import com.xavierpandis.com.web.rest.util.HeaderUtil;
 import com.xavierpandis.com.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -20,6 +23,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,13 +39,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class PlaylistResource {
 
     private final Logger log = LoggerFactory.getLogger(PlaylistResource.class);
-        
+
     @Inject
     private PlaylistRepository playlistRepository;
-    
+
+    @Inject
+    private UserRepository userRepository;
+
     @Inject
     private PlaylistSearchRepository playlistSearchRepository;
-    
+
     /**
      * POST  /playlists : Create a new playlist.
      *
@@ -58,6 +65,14 @@ public class PlaylistResource {
         if (playlist.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("playlist", "idexists", "A new playlist cannot already have an ID")).body(null);
         }
+
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        ZonedDateTime today = ZonedDateTime.now();
+
+        playlist.setDateCreated(today);
+        playlist.setUser(user);
+
         Playlist result = playlistRepository.save(playlist);
         playlistSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/playlists/" + result.getId()))
@@ -104,7 +119,7 @@ public class PlaylistResource {
     public ResponseEntity<List<Playlist>> getAllPlaylists(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Playlists");
-        Page<Playlist> page = playlistRepository.findAll(pageable); 
+        Page<Playlist> page = playlistRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/playlists");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

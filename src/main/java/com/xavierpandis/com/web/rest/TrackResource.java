@@ -2,8 +2,11 @@ package com.xavierpandis.com.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.xavierpandis.com.domain.Track;
+import com.xavierpandis.com.domain.User;
 import com.xavierpandis.com.repository.TrackRepository;
+import com.xavierpandis.com.repository.UserRepository;
 import com.xavierpandis.com.repository.search.TrackSearchRepository;
+import com.xavierpandis.com.security.SecurityUtils;
 import com.xavierpandis.com.web.rest.util.HeaderUtil;
 import com.xavierpandis.com.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -20,6 +23,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,13 +39,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class TrackResource {
 
     private final Logger log = LoggerFactory.getLogger(TrackResource.class);
-        
+
     @Inject
     private TrackRepository trackRepository;
-    
+
+    @Inject
+    private UserRepository userRepository;
+
     @Inject
     private TrackSearchRepository trackSearchRepository;
-    
+
     /**
      * POST  /tracks : Create a new track.
      *
@@ -58,6 +65,13 @@ public class TrackResource {
         if (track.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("track", "idexists", "A new track cannot already have an ID")).body(null);
         }
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        ZonedDateTime today = ZonedDateTime.now();
+
+        track.setDate_upload(today);
+        track.setUser(user);
+
         Track result = trackRepository.save(track);
         trackSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/tracks/" + result.getId()))
@@ -104,7 +118,7 @@ public class TrackResource {
     public ResponseEntity<List<Track>> getAllTracks(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Tracks");
-        Page<Track> page = trackRepository.findAll(pageable); 
+        Page<Track> page = trackRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tracks");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

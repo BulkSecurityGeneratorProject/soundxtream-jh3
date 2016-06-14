@@ -1,20 +1,20 @@
 <div>
-    <h2 translate="soundxtream3App.seguimiento.home.title">Seguimientos</h2>
+    <h2 translate="soundxtream3App.user_friends.home.title">User Friends</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="seguimiento.new" >
+                <button class="btn btn-primary" ui-sref="user-friends.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span class="hidden-xs"  translate="soundxtream3App.seguimiento.home.createLabel">
-                        Create new Seguimiento
+                    <span class="hidden-xs"  translate="soundxtream3App.user_friends.home.createLabel">
+                        Create new User Friends
                     </span>
                 </button>
             </div>
             <div class="col-xs-8 no-padding-right">
                 <form name="searchForm" class="form-inline">
                     <div class="input-group pull-right" >
-                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'soundxtream3App.seguimiento.home.search' | translate }}">
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'soundxtream3App.user_friends.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
                             <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -36,40 +36,40 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="followingDate"><span translate="soundxtream3App.seguimiento.followingDate">Following Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="following"><span translate="soundxtream3App.seguimiento.following">Following</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="follower.login"><span translate="soundxtream3App.seguimiento.follower">Follower</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="followed.login"><span translate="soundxtream3App.seguimiento.followed">Followed</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="friend"><span translate="soundxtream3App.user_friends.friend">Friend</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="friendshipDate"><span translate="soundxtream3App.user_friends.friendshipDate">Friendship Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="friend_to.login"><span translate="soundxtream3App.user_friends.friend_to">Friend To</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="friend_from.login"><span translate="soundxtream3App.user_friends.friend_from">Friend From</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
-                <tr ng-repeat="seguimiento in vm.seguimientos track by seguimiento.id">
-                    <td><a ui-sref="seguimiento-detail({id:seguimiento.id})">{{seguimiento.id}}</a></td>
-                    <td>{{seguimiento.followingDate | date:'medium'}}</td>
-                    <td>{{seguimiento.following}}</td>
+                <tr ng-repeat="user_friends in vm.user_friends track by user_friends.id">
+                    <td><a ui-sref="user-friends-detail({id:user_friends.id})">{{user_friends.id}}</a></td>
+                    <td>{{user_friends.friend}}</td>
+                    <td>{{user_friends.friendshipDate | date:'medium'}}</td>
                     <td>
-                        {{seguimiento.follower.login}}
+                        {{user_friends.friend_to.login}}
                     </td>
                     <td>
-                        {{seguimiento.followed.login}}
+                        {{user_friends.friend_from.login}}
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="seguimiento-detail({id:seguimiento.id})"
+                                    ui-sref="user-friends-detail({id:user_friends.id})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="seguimiento.edit({id:seguimiento.id})"
+                                    ui-sref="user-friends.edit({id:user_friends.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="seguimiento.delete({id:seguimiento.id})"
+                                    ui-sref="user-friends.delete({id:user_friends.id})"
                                     class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
@@ -79,28 +79,5 @@
                 </tr>
             </tbody>
         </table>
-        <div>
-            <div ng-repeat="user in vm.users" ng-if="vm.account.login != user.login">
-                <div>
-                    <span>{{user.id}}</span>
-                    <span>{{user.login}}</span>
-                    <span>{{user.email}}</span>
-                <span>
-                    <button class="btn btn-default" ng-click="vm.follow(user)">Follow</button>
-                    <button class="btn btn-default" ng-click="vm.addFriend(user)">Request friendship</button>
-                </span>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div ng-repeat="friendR in vm.friendNot">
-                <div>
-                    <span>Request friendship from {{friendR.friend_from.login}}</span>
-                <span>
-                    <button class="btn btn-success" ng-click="vm.confirmFriendship(friendR)">Add to friends</button>
-                </span>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

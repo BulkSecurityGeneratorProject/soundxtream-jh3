@@ -5,9 +5,9 @@
         .module('soundxtream3App')
         .controller('TrackDialogController', TrackDialogController);
 
-    TrackDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'Track', 'User', 'Style'];
+    TrackDialogController.$inject = ['$log', '$timeout', '$scope', '$stateParams', 'User_activity', '$uibModalInstance', 'DataUtils', 'entity', 'Track', 'User', 'Style'];
 
-    function TrackDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, Track, User, Style) {
+    function TrackDialogController ($log, $timeout, $scope, $stateParams, User_activity, $uibModalInstance, DataUtils, entity, Track, User, Style) {
         var vm = this;
 
         vm.track = entity;
@@ -19,6 +19,14 @@
         vm.save = save;
         vm.users = User.query();
         vm.styles = Style.query();
+        vm.user_activity = {
+            "createdDate": null,
+            "id": null,
+            "track": null,
+            "type": "uploadTrack",
+            "uploadDate": null,
+            "user": null
+        };
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -31,13 +39,28 @@
         function save () {
             vm.isSaving = true;
             if (vm.track.id !== null) {
-                Track.update(vm.track, onSaveSuccess, onSaveError);
+                Track.update(vm.track, onUpdateSuccess, onSaveError);
             } else {
                 Track.save(vm.track, onSaveSuccess, onSaveError);
             }
         }
 
         function onSaveSuccess (result) {
+            $scope.$emit('soundxtream3App:trackUpdate', result);
+            $uibModalInstance.close(result);
+            vm.isSaving = false;
+            vm.user_activity = {
+                "track": result,
+                "type": "uploadTrack",
+                "uploadDate": result.date_upload,
+                "user": result.user
+            };
+            User_activity.save(vm.user_activity, function (res) {
+                $log.log(res);
+            });
+        }
+
+        function onUpdateSuccess (result) {
             $scope.$emit('soundxtream3App:trackUpdate', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;

@@ -5,9 +5,9 @@
         .module('soundxtream3App')
         .controller('PlaylistDialogController', PlaylistDialogController);
 
-    PlaylistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Playlist', 'Track', 'User'];
+    PlaylistDialogController.$inject = ['$log', 'User_activity', '$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Playlist', 'Track', 'User'];
 
-    function PlaylistDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Playlist, Track, User) {
+    function PlaylistDialogController ($log, User_activity, $timeout, $scope, $stateParams, $uibModalInstance, entity, Playlist, Track, User) {
         var vm = this;
 
         vm.playlist = entity;
@@ -29,16 +29,31 @@
         function save () {
             vm.isSaving = true;
             if (vm.playlist.id !== null) {
-                Playlist.update(vm.playlist, onSaveSuccess, onSaveError);
+                Playlist.update(vm.playlist, onUpdateSuccess, onSaveError);
             } else {
                 Playlist.save(vm.playlist, onSaveSuccess, onSaveError);
             }
+        }
+
+        function onUpdateSuccess (result) {
+            $scope.$emit('soundxtream3App:playlistUpdate', result);
+            $uibModalInstance.close(result);
+            vm.isSaving = false;
         }
 
         function onSaveSuccess (result) {
             $scope.$emit('soundxtream3App:playlistUpdate', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;
+            vm.user_activity = {
+                "playlist": result,
+                "type": "createdPlaylist",
+                "createdDate": result.dateCreated,
+                "user": result.user
+            };
+            User_activity.save(vm.user_activity, function (res) {
+                $log.log(res);
+            });
         }
 
         function onSaveError () {

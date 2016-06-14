@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,13 +36,13 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class User_activityResource {
 
     private final Logger log = LoggerFactory.getLogger(User_activityResource.class);
-        
+
     @Inject
     private User_activityRepository user_activityRepository;
-    
+
     @Inject
     private User_activitySearchRepository user_activitySearchRepository;
-    
+
     /**
      * POST  /user-activities : Create a new user_activity.
      *
@@ -58,6 +59,26 @@ public class User_activityResource {
         if (user_activity.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("user_activity", "idexists", "A new user_activity cannot already have an ID")).body(null);
         }
+
+        ZonedDateTime today = ZonedDateTime.now();
+
+        switch (user_activity.getType().toString()){
+            case "uploadTrack" :
+                user_activity.setUploadDate(today);
+                break;
+            case "likedTrack" :
+                break;
+            case "sharedTrack" :
+                break;
+            case "createdPlaylist" :
+                user_activity.setCreatedDate(today);
+                break;
+            case "likedPlaylist" :
+                break;
+            case "sharedPlaylist" :
+                break;
+        }
+
         User_activity result = user_activityRepository.save(user_activity);
         user_activitySearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/user-activities/" + result.getId()))
@@ -104,7 +125,7 @@ public class User_activityResource {
     public ResponseEntity<List<User_activity>> getAllUser_activities(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of User_activities");
-        Page<User_activity> page = user_activityRepository.findAll(pageable); 
+        Page<User_activity> page = user_activityRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/user-activities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

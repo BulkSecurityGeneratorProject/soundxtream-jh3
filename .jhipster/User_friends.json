@@ -1,0 +1,31 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "friend_to",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipName": "friend_from",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "friend",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "friendshipDate",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20160614182206",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "user_friends",
+    "pagination": "infinite-scroll"
+}

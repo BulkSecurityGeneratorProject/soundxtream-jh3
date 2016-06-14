@@ -1,0 +1,25 @@
+{
+    "soundxtream3App": {
+        "user_friends" : {
+            "home": {
+                "title": "User Friends",
+                "createLabel": "Crear nuevo User Friends",
+                "createOrEditLabel": "Crear o editar User Friends",
+                "search": "Search for User Friends"
+            },
+            "created": "Un nuevo User Friends ha sido creado con el identificador {{ param }}",
+            "updated": "Un User Friends ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un User Friends ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar User Friends {{ id }}?"
+            },
+            "detail": {
+                "title": "User Friends"
+            },
+            "friend": "Friend",
+            "friendshipDate": "Friendship Date",
+            "friend_to": "Friend To",
+            "friend_from": "Friend From"
+        }
+    }
+}

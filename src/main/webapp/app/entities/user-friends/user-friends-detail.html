@@ -1,0 +1,30 @@
+
+<div>
+    <h2><span translate="soundxtream3App.user_friends.detail.title">User Friends</span> {{vm.user_friends.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="soundxtream3App.user_friends.friend">Friend</span></dt>
+        <dd>
+            <span>{{vm.user_friends.friend}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.user_friends.friendshipDate">Friendship Date</span></dt>
+        <dd>
+            <span>{{vm.user_friends.friendshipDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.user_friends.friend_to">Friend To</span></dt>
+        <dd>
+            {{vm.user_friends.friend_to.login}}
+        </dd>
+        <dt><span translate="soundxtream3App.user_friends.friend_from">Friend From</span></dt>
+        <dd>
+            {{vm.user_friends.friend_from.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

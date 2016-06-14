@@ -2,8 +2,11 @@ package com.xavierpandis.com.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.xavierpandis.com.domain.Seguimiento;
+import com.xavierpandis.com.domain.User;
 import com.xavierpandis.com.repository.SeguimientoRepository;
+import com.xavierpandis.com.repository.UserRepository;
 import com.xavierpandis.com.repository.search.SeguimientoSearchRepository;
+import com.xavierpandis.com.security.SecurityUtils;
 import com.xavierpandis.com.web.rest.util.HeaderUtil;
 import com.xavierpandis.com.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,13 +38,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class SeguimientoResource {
 
     private final Logger log = LoggerFactory.getLogger(SeguimientoResource.class);
-        
+
     @Inject
     private SeguimientoRepository seguimientoRepository;
-    
+
+    @Inject
+    private UserRepository userRepository;
+
     @Inject
     private SeguimientoSearchRepository seguimientoSearchRepository;
-    
+
     /**
      * POST  /seguimientos : Create a new seguimiento.
      *
@@ -57,6 +64,27 @@ public class SeguimientoResource {
         if (seguimiento.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("seguimiento", "idexists", "A new seguimiento cannot already have an ID")).body(null);
         }
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        String seguido = seguimiento.getFollowed().getLogin();
+
+        Seguimiento exist = seguimientoRepository.findExistSeguimiento(user.getLogin(),seguido);
+        if(exist != null){
+            if(exist.isFollowing() == null || exist.isFollowing() == false){
+                exist.setFollowing(true);
+            }
+            else{
+                exist.setFollowing(false);
+            }
+            return updateSeguimiento(exist);
+        }
+
+        ZonedDateTime today = ZonedDateTime.now();
+        seguimiento.setFollowingDate(today);
+        seguimiento.setFollower(user);
+        seguimiento.setFollowed(seguimiento.getFollowed());
+        seguimiento.setFollowing(true);
+
         Seguimiento result = seguimientoRepository.save(seguimiento);
         seguimientoSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/seguimientos/" + result.getId()))
@@ -103,7 +131,7 @@ public class SeguimientoResource {
     public ResponseEntity<List<Seguimiento>> getAllSeguimientos(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Seguimientos");
-        Page<Seguimiento> page = seguimientoRepository.findAll(pageable); 
+        Page<Seguimiento> page = seguimientoRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/seguimientos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
