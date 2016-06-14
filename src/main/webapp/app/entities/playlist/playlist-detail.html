@@ -1,0 +1,48 @@
+
+<div>
+    <h2><span translate="soundxtream3App.playlist.detail.title">Playlist</span> {{vm.playlist.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="soundxtream3App.playlist.name">Name</span></dt>
+        <dd>
+            <span>{{vm.playlist.name}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.playlist.description">Description</span></dt>
+        <dd>
+            <span>{{vm.playlist.description}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.playlist.duration">Duration</span></dt>
+        <dd>
+            <span>{{vm.playlist.duration}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.playlist.artwork">Artwork</span></dt>
+        <dd>
+            <span>{{vm.playlist.artwork}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.playlist.visual">Visual</span></dt>
+        <dd>
+            <span>{{vm.playlist.visual}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.playlist.dateCreated">Date Created</span></dt>
+        <dd>
+            <span>{{vm.playlist.dateCreated | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.playlist.track">Track</span></dt>
+        <dd>
+            <span ng-repeat="track in vm.playlist.tracks">
+                <a ui-sref="track-detail({id: {{track.id}}})">{{track.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span translate="soundxtream3App.playlist.user">User</span></dt>
+        <dd>
+            {{vm.playlist.user.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

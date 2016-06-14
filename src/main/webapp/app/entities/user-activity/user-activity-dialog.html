@@ -1,0 +1,113 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myUser_activityLabel" translate="soundxtream3App.user_activity.home.createOrEditLabel">Create or edit a User Activity</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.user_activity.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.user_activity.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.user_activity.type" for="field_type">Type</label>
+            <select class="form-control" name="type" ng-model="vm.user_activity.type" id="field_type" required>
+                <option value="uploadTrack" translate="soundxtream3App.TypeActivity.uploadTrack">uploadTrack</option>
+                <option value="likedTrack" translate="soundxtream3App.TypeActivity.likedTrack">likedTrack</option>
+                <option value="sharedTrack" translate="soundxtream3App.TypeActivity.sharedTrack">sharedTrack</option>
+                <option value="createdPlaylist" translate="soundxtream3App.TypeActivity.createdPlaylist">createdPlaylist</option>
+                <option value="likedPlaylist" translate="soundxtream3App.TypeActivity.likedPlaylist">likedPlaylist</option>
+                <option value="sharedPlaylist" translate="soundxtream3App.TypeActivity.sharedPlaylist">sharedPlaylist</option>
+            </select>
+            <div ng-show="editForm.type.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.type.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.user_activity.liked" for="field_liked">Liked</label>
+            <input type="checkbox" class="form-control" name="liked" id="field_liked"
+                    ng-model="vm.user_activity.liked"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.user_activity.shared" for="field_shared">Shared</label>
+            <input type="checkbox" class="form-control" name="shared" id="field_shared"
+                    ng-model="vm.user_activity.shared"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.user_activity.dateLiked" for="field_dateLiked">Date Liked</label>
+                <div class="input-group">
+                    <input id="field_dateLiked" type="text" class="form-control" name="dateLiked" datetime-picker="{{dateformat}}" ng-model="vm.user_activity.dateLiked" is-open="vm.datePickerOpenStatus.dateLiked"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateLiked')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.user_activity.sharedDate" for="field_sharedDate">Shared Date</label>
+                <div class="input-group">
+                    <input id="field_sharedDate" type="text" class="form-control" name="sharedDate" datetime-picker="{{dateformat}}" ng-model="vm.user_activity.sharedDate" is-open="vm.datePickerOpenStatus.sharedDate"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('sharedDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.user_activity.uploadDate" for="field_uploadDate">Upload Date</label>
+                <div class="input-group">
+                    <input id="field_uploadDate" type="text" class="form-control" name="uploadDate" datetime-picker="{{dateformat}}" ng-model="vm.user_activity.uploadDate" is-open="vm.datePickerOpenStatus.uploadDate"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('uploadDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="soundxtream3App.user_activity.createdDate" for="field_createdDate">Created Date</label>
+                <div class="input-group">
+                    <input id="field_createdDate" type="text" class="form-control" name="createdDate" datetime-picker="{{dateformat}}" ng-model="vm.user_activity.createdDate" is-open="vm.datePickerOpenStatus.createdDate"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createdDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="soundxtream3App.user_activity.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.user_activity.user" ng-options="user as user.login for user in vm.users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="soundxtream3App.user_activity.track" for="field_track">Track</label>
+            <select class="form-control" id="field_track" name="track" ng-model="vm.user_activity.track" ng-options="track as track.name for track in vm.tracks track by track.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="soundxtream3App.user_activity.playlist" for="field_playlist">Playlist</label>
+            <select class="form-control" id="field_playlist" name="playlist" ng-model="vm.user_activity.playlist" ng-options="playlist as playlist.name for playlist in vm.playlists track by playlist.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

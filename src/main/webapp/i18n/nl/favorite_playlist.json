@@ -1,0 +1,27 @@
+{
+    "soundxtream3App": {
+        "favorite_playlist" : {
+            "home": {
+                "title": "Favorite Playlists",
+                "createLabel": "Maak een nieuwe Favorite Playlist",
+                "createOrEditLabel": "Maak of wijzig een Favorite Playlist",
+                "search": "Search for Favorite Playlist"
+            },
+            "created": "A new Favorite Playlist is created with identifier {{ param }}",
+            "updated": "A Favorite Playlist is updated with identifier {{ param }}",
+            "deleted": "A Favorite Playlist is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Favorite Playlist {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Favorite Playlist"
+            },
+            "liked": "Liked",
+            "shared": "Shared",
+            "likedDate": "Liked Date",
+            "sharedDate": "Shared Date",
+            "playlist": "Playlist",
+            "user": "User"
+        }
+    }
+}

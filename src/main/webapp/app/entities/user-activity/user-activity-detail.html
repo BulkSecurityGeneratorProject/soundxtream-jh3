@@ -1,0 +1,54 @@
+
+<div>
+    <h2><span translate="soundxtream3App.user_activity.detail.title">User Activity</span> {{vm.user_activity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="soundxtream3App.user_activity.type">Type</span></dt>
+        <dd>
+            <span translate="{{'soundxtream3App.TypeActivity.' + vm.user_activity.type}}">{{vm.user_activity.type}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.user_activity.liked">Liked</span></dt>
+        <dd>
+            <span>{{vm.user_activity.liked}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.user_activity.shared">Shared</span></dt>
+        <dd>
+            <span>{{vm.user_activity.shared}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.user_activity.dateLiked">Date Liked</span></dt>
+        <dd>
+            <span>{{vm.user_activity.dateLiked | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.user_activity.sharedDate">Shared Date</span></dt>
+        <dd>
+            <span>{{vm.user_activity.sharedDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.user_activity.uploadDate">Upload Date</span></dt>
+        <dd>
+            <span>{{vm.user_activity.uploadDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.user_activity.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{vm.user_activity.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.user_activity.user">User</span></dt>
+        <dd>
+            {{vm.user_activity.user.login}}
+        </dd>
+        <dt><span translate="soundxtream3App.user_activity.track">Track</span></dt>
+        <dd>
+            <a ui-sref="track-detail({id:vm.user_activity.track.id})">{{vm.user_activity.track.name}}</a>
+        </dd>
+        <dt><span translate="soundxtream3App.user_activity.playlist">Playlist</span></dt>
+        <dd>
+            <a ui-sref="playlist-detail({id:vm.user_activity.playlist.id})">{{vm.user_activity.playlist.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

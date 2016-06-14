@@ -1,0 +1,97 @@
+<div>
+    <h2 translate="soundxtream3App.user_activity.home.title">User Activities</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="user-activity.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="hidden-xs"  translate="soundxtream3App.user_activity.home.createLabel">
+                        Create new User Activity
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'soundxtream3App.user_activity.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                        <span class="input-group-btn width-min" ng-if="vm.currentSearch">
+                            <button class="btn btn-info" ng-click="vm.clear()">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="type"><span translate="soundxtream3App.user_activity.type">Type</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="liked"><span translate="soundxtream3App.user_activity.liked">Liked</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="shared"><span translate="soundxtream3App.user_activity.shared">Shared</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dateLiked"><span translate="soundxtream3App.user_activity.dateLiked">Date Liked</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="sharedDate"><span translate="soundxtream3App.user_activity.sharedDate">Shared Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="uploadDate"><span translate="soundxtream3App.user_activity.uploadDate">Upload Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createdDate"><span translate="soundxtream3App.user_activity.createdDate">Created Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="user.login"><span translate="soundxtream3App.user_activity.user">User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="track.name"><span translate="soundxtream3App.user_activity.track">Track</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="playlist.name"><span translate="soundxtream3App.user_activity.playlist">Playlist</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+                <tr ng-repeat="user_activity in vm.user_activities track by user_activity.id">
+                    <td><a ui-sref="user-activity-detail({id:user_activity.id})">{{user_activity.id}}</a></td>
+                    <td translate="{{'soundxtream3App.TypeActivity.' + user_activity.type}}">{{user_activity.type}}</td>
+                    <td>{{user_activity.liked}}</td>
+                    <td>{{user_activity.shared}}</td>
+                    <td>{{user_activity.dateLiked | date:'medium'}}</td>
+                    <td>{{user_activity.sharedDate | date:'medium'}}</td>
+                    <td>{{user_activity.uploadDate | date:'medium'}}</td>
+                    <td>{{user_activity.createdDate | date:'medium'}}</td>
+                    <td>
+                        {{user_activity.user.login}}
+                    </td>
+                    <td>
+                        <a ui-sref="track-detail({id:user_activity.track.id})">{{user_activity.track.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="playlist-detail({id:user_activity.playlist.id})">{{user_activity.playlist.name}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="user-activity-detail({id:user_activity.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="user-activity.edit({id:user_activity.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="user-activity.delete({id:user_activity.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

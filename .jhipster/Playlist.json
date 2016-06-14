@@ -1,0 +1,58 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "track",
+            "otherEntityName": "track",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "duration",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": "0"
+        },
+        {
+            "fieldName": "artwork",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "visual",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateCreated",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160614140107",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "playlist",
+    "pagination": "infinite-scroll"
+}

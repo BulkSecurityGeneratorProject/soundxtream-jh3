@@ -1,0 +1,27 @@
+{
+    "soundxtream3App": {
+        "favorite_track" : {
+            "home": {
+                "title": "Favorite Tracks",
+                "createLabel": "Create a new Favorite Track",
+                "createOrEditLabel": "Create or edit a Favorite Track",
+                "search": "Search for Favorite Track"
+            },
+            "created": "A new Favorite Track is created with identifier {{ param }}",
+            "updated": "A Favorite Track is updated with identifier {{ param }}",
+            "deleted": "A Favorite Track is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Favorite Track {{ id }}?"
+            },
+            "detail": {
+                "title": "Favorite Track"
+            },
+            "liked": "Liked",
+            "shared": "Shared",
+            "likedDate": "Liked Date",
+            "sharedDate": "Shared Date",
+            "user": "User",
+            "track": "Track"
+        }
+    }
+}

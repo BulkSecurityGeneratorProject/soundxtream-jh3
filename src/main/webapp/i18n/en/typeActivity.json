@@ -1,0 +1,13 @@
+{
+    "soundxtream3App": {
+        "TypeActivity" : {
+            "null": "",
+            "uploadTrack": "uploadTrack",
+            "likedTrack": "likedTrack",
+            "sharedTrack": "sharedTrack",
+            "createdPlaylist": "createdPlaylist",
+            "likedPlaylist": "likedPlaylist",
+            "sharedPlaylist": "sharedPlaylist"
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "soundxtream3App": {
+        "user_activity" : {
+            "home": {
+                "title": "User Activities",
+                "createLabel": "Crear nuevo User Activity",
+                "createOrEditLabel": "Crear o editar User Activity",
+                "search": "Search for User Activity"
+            },
+            "created": "Un nuevo User Activity ha sido creado con el identificador {{ param }}",
+            "updated": "Un User Activity ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un User Activity ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar User Activity {{ id }}?"
+            },
+            "detail": {
+                "title": "User Activity"
+            },
+            "type": "Type",
+            "liked": "Liked",
+            "shared": "Shared",
+            "dateLiked": "Date Liked",
+            "sharedDate": "Shared Date",
+            "uploadDate": "Upload Date",
+            "createdDate": "Created Date",
+            "user": "User",
+            "track": "Track",
+            "playlist": "Playlist"
+        }
+    }
+}

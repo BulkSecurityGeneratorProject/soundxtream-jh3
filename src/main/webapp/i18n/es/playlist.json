@@ -1,0 +1,29 @@
+{
+    "soundxtream3App": {
+        "playlist" : {
+            "home": {
+                "title": "Playlists",
+                "createLabel": "Crear nuevo Playlist",
+                "createOrEditLabel": "Crear o editar Playlist",
+                "search": "Search for Playlist"
+            },
+            "created": "Un nuevo Playlist ha sido creado con el identificador {{ param }}",
+            "updated": "Un Playlist ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Playlist ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Playlist {{ id }}?"
+            },
+            "detail": {
+                "title": "Playlist"
+            },
+            "name": "Name",
+            "description": "Description",
+            "duration": "Duration",
+            "artwork": "Artwork",
+            "visual": "Visual",
+            "dateCreated": "Date Created",
+            "track": "Track",
+            "user": "User"
+        }
+    }
+}
