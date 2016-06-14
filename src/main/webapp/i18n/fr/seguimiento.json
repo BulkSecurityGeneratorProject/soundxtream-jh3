@@ -1,0 +1,25 @@
+{
+    "soundxtream3App": {
+        "seguimiento" : {
+            "home": {
+                "title": "Seguimientos",
+                "createLabel": "Créer un nouveau Seguimiento",
+                "createOrEditLabel": "Créer ou éditer un Seguimiento",
+                "search": "Recherche pour Seguimiento"
+            },
+            "created": "Un nouveau Seguimiento a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Seguimiento avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Seguimiento avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Seguimiento {{ id }} ?"
+            },
+            "detail": {
+                "title": "Seguimiento"
+            },
+            "followingDate": "Following Date",
+            "following": "Following",
+            "follower": "Follower",
+            "followed": "Followed"
+        }
+    }
+}

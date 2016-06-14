@@ -1,0 +1,30 @@
+
+<div>
+    <h2><span translate="soundxtream3App.seguimiento.detail.title">Seguimiento</span> {{vm.seguimiento.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="soundxtream3App.seguimiento.followingDate">Following Date</span></dt>
+        <dd>
+            <span>{{vm.seguimiento.followingDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.seguimiento.following">Following</span></dt>
+        <dd>
+            <span>{{vm.seguimiento.following}}</span>
+        </dd>
+        <dt><span translate="soundxtream3App.seguimiento.follower">Follower</span></dt>
+        <dd>
+            {{vm.seguimiento.follower.login}}
+        </dd>
+        <dt><span translate="soundxtream3App.seguimiento.followed">Followed</span></dt>
+        <dd>
+            {{vm.seguimiento.followed.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

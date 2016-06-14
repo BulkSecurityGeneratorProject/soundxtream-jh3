@@ -1,0 +1,31 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "follower",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipName": "followed",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "followingDate",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "following",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20160614143437",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "seguimiento",
+    "pagination": "infinite-scroll"
+}

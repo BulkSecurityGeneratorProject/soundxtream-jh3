@@ -13,6 +13,7 @@
                 "favoriteTrack": "Favorite Track",
                 "playlist": "Playlist",
                 "userActivity": "User Activity",
+                "seguimiento": "Seguimiento",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
