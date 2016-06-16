@@ -1,0 +1,23 @@
+{
+    "soundxtream3App": {
+        "chat" : {
+            "home": {
+                "title": "Chats",
+                "createLabel": "Maak een nieuwe Chat",
+                "createOrEditLabel": "Maak of wijzig een Chat",
+                "search": "Search for Chat"
+            },
+            "created": "A new Chat is created with identifier {{ param }}",
+            "updated": "A Chat is updated with identifier {{ param }}",
+            "deleted": "A Chat is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Chat {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Chat"
+            },
+            "name": "Name",
+            "participants": "Participants"
+        }
+    }
+}

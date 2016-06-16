@@ -1,20 +1,20 @@
 <div>
-    <h2 translate="soundxtream3App.user_friends.home.title">User Friends</h2>
+    <h2 translate="soundxtream3App.chat.home.title">Chats</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="user-friends.new" >
+                <button class="btn btn-primary" ui-sref="chat.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span class="hidden-xs"  translate="soundxtream3App.user_friends.home.createLabel">
-                        Create new User Friends
+                    <span class="hidden-xs"  translate="soundxtream3App.chat.home.createLabel">
+                        Create new Chat
                     </span>
                 </button>
             </div>
             <div class="col-xs-8 no-padding-right">
                 <form name="searchForm" class="form-inline">
                     <div class="input-group pull-right" >
-                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'soundxtream3App.user_friends.home.search' | translate }}">
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'soundxtream3App.chat.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
                             <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -36,46 +36,30 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="friend"><span translate="soundxtream3App.user_friends.friend">Friend</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="friendshipDate"><span translate="soundxtream3App.user_friends.friendshipDate">Friendship Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="friend_to.login"><span translate="soundxtream3App.user_friends.friend_to">Friend To</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="friend_from.login"><span translate="soundxtream3App.user_friends.friend_from">Friend From</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span translate="soundxtream3App.chat.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
-                <tr ng-repeat="user_friends in vm.user_friends track by user_friends.id">
-                    <td><a ui-sref="user-friends-detail({id:user_friends.id})">{{user_friends.id}}</a></td>
-                    <td>{{user_friends.friend}}</td>
-                    <td>{{user_friends.friendshipDate | date:'medium'}}</td>
-                    <td>
-                        {{user_friends.friend_to.login}}
-                    </td>
-                    <td>
-                        {{user_friends.friend_from.login}}
-                    </td>
+                <tr ng-repeat="chat in vm.chats track by chat.id">
+                    <td><a ui-sref="chat-detail({id:chat.id})">{{chat.id}}</a></td>
+                    <td>{{chat.name}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="conversation({name: '@' + (user_friends.friend_to.id + user_friends.friend_from.id)})"
-                                    class="btn btn-success btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm">Open Chat</span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="user-friends-detail({id:user_friends.id})"
+                                    ui-sref="chat-detail({id:chat.id})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="user-friends.edit({id:user_friends.id})"
+                                    ui-sref="chat.edit({id:chat.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="user-friends.delete({id:user_friends.id})"
+                                    ui-sref="chat.delete({id:chat.id})"
                                     class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>

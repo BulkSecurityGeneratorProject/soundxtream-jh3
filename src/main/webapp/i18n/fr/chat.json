@@ -1,0 +1,23 @@
+{
+    "soundxtream3App": {
+        "chat" : {
+            "home": {
+                "title": "Chats",
+                "createLabel": "Créer un nouveau Chat",
+                "createOrEditLabel": "Créer ou éditer un Chat",
+                "search": "Recherche pour Chat"
+            },
+            "created": "Un nouveau Chat a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Chat avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Chat avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Chat {{ id }} ?"
+            },
+            "detail": {
+                "title": "Chat"
+            },
+            "name": "Name",
+            "participants": "Participants"
+        }
+    }
+}

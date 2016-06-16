@@ -9,83 +9,62 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('playlist', {
+        .state('chat', {
             parent: 'entity',
-            url: '/playlist',
+            url: '/chat',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'soundxtream3App.playlist.home.title'
+                pageTitle: 'soundxtream3App.chat.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/playlist/playlists.html',
-                    controller: 'PlaylistController',
+                    templateUrl: 'app/entities/chat/chats.html',
+                    controller: 'ChatController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('playlist');
+                    $translatePartialLoader.addPart('chat');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('conversation', {
+        .state('chat-detail', {
             parent: 'entity',
-            url: '/conversation/{name}',
+            url: '/chat/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'soundxtream3App.playlist.home.title'
+                pageTitle: 'soundxtream3App.chat.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/components/chat/chat.html',
-                    controller: 'ChatCtrl',
+                    templateUrl: 'app/entities/chat/chat-detail.html',
+                    controller: 'ChatDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('playlist');
-                    $translatePartialLoader.addPart('global');
-                }]
-            }
-        })
-        .state('playlist-detail', {
-            parent: 'entity',
-            url: '/playlist/{id}',
-            data: {
-                authorities: ['ROLE_USER'],
-                pageTitle: 'soundxtream3App.playlist.detail.title'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/entities/playlist/playlist-detail.html',
-                    controller: 'PlaylistDetailController',
-                    controllerAs: 'vm'
-                }
-            },
-            resolve: {
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('playlist');
+                    $translatePartialLoader.addPart('chat');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Playlist', function($stateParams, Playlist) {
-                    return Playlist.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'Chat', function($stateParams, Chat) {
+                    return Chat.get({id : $stateParams.id}).$promise;
                 }]
             }
         })
-        .state('playlist.new', {
-            parent: 'playlist',
+        .state('chat.new', {
+            parent: 'chat',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/playlist/playlist-dialog.html',
-                    controller: 'PlaylistDialogController',
+                    templateUrl: 'app/entities/chat/chat-dialog.html',
+                    controller: 'ChatDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
@@ -93,66 +72,61 @@
                         entity: function () {
                             return {
                                 name: null,
-                                description: null,
-                                duration: null,
-                                artwork: null,
-                                visual: null,
-                                dateCreated: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('playlist', null, { reload: true });
+                    $state.go('chat', null, { reload: true });
                 }, function() {
-                    $state.go('playlist');
+                    $state.go('chat');
                 });
             }]
         })
-        .state('playlist.edit', {
-            parent: 'playlist',
+        .state('chat.edit', {
+            parent: 'chat',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/playlist/playlist-dialog.html',
-                    controller: 'PlaylistDialogController',
+                    templateUrl: 'app/entities/chat/chat-dialog.html',
+                    controller: 'ChatDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Playlist', function(Playlist) {
-                            return Playlist.get({id : $stateParams.id}).$promise;
+                        entity: ['Chat', function(Chat) {
+                            return Chat.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('playlist', null, { reload: true });
+                    $state.go('chat', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('playlist.delete', {
-            parent: 'playlist',
+        .state('chat.delete', {
+            parent: 'chat',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/playlist/playlist-delete-dialog.html',
-                    controller: 'PlaylistDeleteController',
+                    templateUrl: 'app/entities/chat/chat-delete-dialog.html',
+                    controller: 'ChatDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Playlist', function(Playlist) {
-                            return Playlist.get({id : $stateParams.id}).$promise;
+                        entity: ['Chat', function(Chat) {
+                            return Chat.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('playlist', null, { reload: true });
+                    $state.go('chat', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });

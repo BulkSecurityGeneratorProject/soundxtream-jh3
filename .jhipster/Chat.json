@@ -1,0 +1,22 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "participants",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "login",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160616130650",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "chat",
+    "pagination": "infinite-scroll"
+}

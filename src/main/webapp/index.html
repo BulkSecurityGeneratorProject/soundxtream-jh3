@@ -72,6 +72,12 @@
     <!-- endinject -->
     <!-- endbuild -->
 
+    
+    <script src="https://cdn.pubnub.com/pubnub-3.7.21.js"></script>
+    <script src="https://cdn.pubnub.com/sdk/pubnub-angular/pubnub-angular-3.1.1.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+    <!--<script src='http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js'></script>-->
+
     <!-- build:js app/app.js  -->
     <!-- inject:js -->
     <script src="app/app.module.js"></script>
@@ -138,6 +144,13 @@
     <script src="app/entities/playlist/playlist.search.service.js"></script>
     <script src="app/entities/playlist/playlist.controller.js"></script>
     <script src="app/entities/entity.state.js"></script>
+    <script src="app/entities/chat/chat-dialog.controller.js"></script>
+    <script src="app/entities/chat/chat-detail.controller.js"></script>
+    <script src="app/entities/chat/chat-delete-dialog.controller.js"></script>
+    <script src="app/entities/chat/chat.state.js"></script>
+    <script src="app/entities/chat/chat.service.js"></script>
+    <script src="app/entities/chat/chat.search.service.js"></script>
+    <script src="app/entities/chat/chat.controller.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>
@@ -159,6 +172,7 @@
     <script src="app/components/form/pagination.constants.js"></script>
     <script src="app/components/form/minbytes.directive.js"></script>
     <script src="app/components/form/maxbytes.directive.js"></script>
+    <script src="app/components/chat/chat.controller.js"></script>
     <script src="app/components/alert/alert-error.directive.js"></script>
     <script src="app/components/alert/alert.service.js"></script>
     <script src="app/components/alert/alert.directive.js"></script>
