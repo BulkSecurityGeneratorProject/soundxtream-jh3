@@ -4,9 +4,9 @@
 	.module('soundxtream3App')
 	.controller('ChatCtrl', ChatCtrl);
 
-	ChatCtrl.$inject = ['$scope', 'Pubnub' , '$rootScope', 'Principal', '$stateParams'];
+	ChatCtrl.$inject = ['$q', '$scope', 'Pubnub' , '$rootScope', 'Principal', '$stateParams', '$anchorScroll'];
 
-	function ChatCtrl ($scope, Pubnub, $rootScope, Principal, $stateParams) {
+	function ChatCtrl ($q, $scope, Pubnub, $rootScope, Principal, $stateParams, $anchorScroll) {
 
 		Principal.identity().then(function(account){
 			vm.user = account;
@@ -16,10 +16,16 @@
 
 		vm.messages = [];
     	vm.channel = $stateParams.name;
+    	vm.firstMessageTimeToken = null;
+  		vm.messagesAllFetched = false;
+
+    	Pubnub.time(function(time){
+        	vm.firstMessageTimeToken = time;
+      	})
 
   		var populate = function(){
 
-		    var defaultMessagesNumber = 20;
+		    var defaultMessagesNumber = 10;
 
 		    Pubnub.history({
 		     channel: vm.channel,
@@ -43,15 +49,51 @@
 
 		};
 
-		var getMessages = function() {
-
+			var getMessages = function() {
 		    if (_.isEmpty(vm.messages))
 		      populate();
-
 		    return vm.messages;
-
   		};
   		getMessages();
+
+
+
+		  var fetchPreviousMessages = function(){
+		  	var messages2 = getMessages();
+		  	console.log(messages2);
+		    var defaultMessagesNumber = 1;
+
+		    var deferred = $q.defer()
+
+		    Pubnub.history({
+		     channel: vm.channel,
+		     callback: function(m){
+		        // Update the timetoken of the first message
+		        vm.timeTokenFirstMessage = m[1]
+		        Array.prototype.unshift.apply(vm.messages,m[0])
+		        
+		        if(m[0].length < defaultMessagesNumber){
+		          vm.messagesAllFetched = true;
+		        }
+
+		        $rootScope.$digest()
+		        deferred.resolve(m)
+
+		     },
+		     error: function(m){
+		        deferred.reject(m)
+		     },
+		     count: defaultMessagesNumber, 
+		     start: vm.timeTokenFirstMessage,
+		     reverse: false
+		    });
+		    return deferred.promise
+		  };
+
+
+		var messagesAllFetched = function() {
+		    return vm.messagesAllFetched;
+		};
 
     	vm.avatarUrl = function() {
         	return '//robohash.org/' + $rootScope.uuid + '?set=set2&bgset=bg2&size=70x70';
@@ -84,13 +126,30 @@
 	        triggerEvents: ['callback']
 	    });
 
+	    
+
 	    $scope.scrollDown = function(time) {
 	        var $elem = $('.collection');
-	        $('body').animate({
-	            scrollTop: $elem.height()
+
+	        $elem.animate({
+	            scrollTop: $('.collection')[0].scrollHeight
+	        },{
+	        	complete: function () {
+	        		$elem.scrollTop($('.collection')[0].scrollHeight);
+	        	}
 	        }, time);
+
 	    };
-		$scope.scrollDown(400);
+
+	   	$scope.scrollDown(2000);
+
+	    $('.collection').on('scroll', function() {
+	    	console.log($(this).scrollTop() + " , " + $(this)[0].scrollHeight);
+		    if($(this).scrollTop() === 0) {
+		        $(this).scrollTop(1);
+		        fetchPreviousMessages();
+		    }
+    	});
 
 	    $scope.$on(Pubnub.getMessageEventNameFor(vm.channel), function(ngEvent, m) {
 	        $scope.$apply(function() {
